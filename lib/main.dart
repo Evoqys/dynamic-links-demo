@@ -57,7 +57,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    initDynamicLinks();
+
   }
 
   @override
@@ -76,29 +76,5 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
-  initDynamicLinks() async {
-    // this is called when app comes from background
-    FirebaseDynamicLinks.instance.onLink(
-        onSuccess: (PendingDynamicLinkData dynamicLink) async {
-          final Uri deepLink = dynamicLink?.link;
 
-          if (deepLink != null) {
-            print(deepLink.queryParameters.toString());
-          }
-        },
-        onError: (OnLinkErrorException e) async {
-          print('onLinkError');
-          print(e.message);
-        }
-    );
-
-    // this is called when app is not open in background
-
-    final PendingDynamicLinkData data = await FirebaseDynamicLinks.instance.getInitialLink();
-    final Uri deepLink = data?.link;
-
-    if (deepLink != null) {
-      print(deepLink.queryParameters.toString());
-    }
-  }
 }
